@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(AbstractCompile) {
+    options.with {
+        fork = true
+        forkOptions.javaHome = file("${java11home}")
+        forkOptions.executable = "${java11home}/bin/javac"
+    }
+}
+
+tasks.withType(Test) {
+    executable = new File("${java11home}/bin/java")
+}
+tasks.withType(JavaExec) {
+    executable = new File("${java11home}/bin/java")
+}
+
+dependencies {
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
+
+}
+

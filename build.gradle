@@ -1,0 +1,15 @@
+wrapper {
+    gradleVersion = "6.1.1"
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+subprojects {
+    apply plugin: 'java'
+    test {
+        useJUnitPlatform()
+
+        testLogging {
+            events "passed", "skipped", "failed", "standard_out", "standard_error"
+        }
+    }
+}

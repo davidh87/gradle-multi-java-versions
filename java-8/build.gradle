@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(AbstractCompile) {
+    options.with {
+        fork = true
+        forkOptions.javaHome = file("${java8home}")
+        forkOptions.executable = "${java8home}/bin/javac"
+    }
+}
+
+tasks.withType(Test) {
+    executable = new File("${java8home}/bin/java")
+}
+tasks.withType(JavaExec) {
+    executable = new File("${java8home}/bin/java")
+}
+
+dependencies {
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
+
+}
+

@@ -1,0 +1,4 @@
+rootProject.name = 'multi-jvm-test'
+
+include 'java-8'
+include 'java-11'
